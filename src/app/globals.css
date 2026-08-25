@@ -1,0 +1,253 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-hover: var(--surface-hover);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-text-faint: var(--text-faint);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-orange: var(--orange);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --radius-sm: 5px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 12px;
+}
+
+/* ---------- design tokens ---------- */
+/* Dark is the default look for a network-ops tool — closer to a NOC/monitoring
+   console (Grafana, Wireshark, iLO) than a consumer AI-SaaS template: one
+   restrained accent (not a decorative gradient pair), flat surfaces, tight
+   corners, crisp borders instead of glow/blur for state. Light theme is
+   opt-in via [data-theme="light"] on <html>, toggled + persisted by
+   src/lib/theme.ts. */
+:root {
+  --bg: #0a0b0d;
+  --surface: #101216;
+  --surface-2: #16181d;
+  --surface-hover: #1e2127;
+  --border: #22252b;
+  --border-strong: #2e323a;
+  --text: #e7e9ec;
+  --text-muted: #9498a1;
+  --text-faint: #64686f;
+  --accent: #3d7bfd;
+  --accent-2: #2dd4bf;
+  --success: #2fb974;
+  --warning: #d99a2b;
+  --danger: #e5534b;
+  --orange: #d97a3f;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 8px 28px rgba(0, 0, 0, 0.5);
+}
+
+:root[data-theme="light"] {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --surface-2: #f0f1f4;
+  --surface-hover: #e5e7eb;
+  --border: #dee0e5;
+  --border-strong: #c5c8d0;
+  --text: #16181c;
+  --text-muted: #565a63;
+  --text-faint: #868a92;
+  --accent: #2f5fd6;
+  --accent-2: #0f8f80;
+  --success: #147a4d;
+  --warning: #966418;
+  --danger: #c53a32;
+  --orange: #b0591f;
+
+  --shadow-sm: 0 1px 2px rgba(20, 22, 30, 0.05);
+  --shadow-md: 0 4px 12px rgba(20, 22, 30, 0.07);
+  --shadow-lg: 0 8px 28px rgba(20, 22, 30, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+/* ---------- React Flow theme overrides ---------- */
+.react-flow {
+  background: var(--bg);
+}
+
+.react-flow__background {
+  background: var(--bg);
+}
+
+.react-flow__edge-path {
+  stroke-width: 2;
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke-width: 3;
+}
+
+.react-flow__handle {
+  opacity: 0;
+  width: 6px;
+  height: 6px;
+}
+
+.react-flow__controls {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.react-flow__controls-button {
+  background: transparent;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  fill: var(--text);
+}
+
+.react-flow__controls-button:hover {
+  background: var(--surface-hover);
+}
+
+.react-flow__minimap {
+  background: var(--surface) !important;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.react-flow__attribution {
+  background: transparent !important;
+  color: var(--text-faint) !important;
+  font-size: 9px;
+}
+
+.react-flow__attribution a {
+  color: var(--text-faint) !important;
+}
+
+/* ---------- animations ---------- */
+@keyframes status-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(1.25);
+  }
+}
+
+.status-pulse {
+  animation: status-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+.failed-edge-dash {
+  animation: dash-flow 0.8s linear infinite;
+}
+
+@keyframes typing-bounce {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+.typing-dot {
+  animation: typing-bounce 1.2s infinite ease-in-out;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fade-in-up 0.25s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---------- scrollbars ---------- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-strong);
+}
+
+/* canvas grid backdrop */
+.canvas-grid {
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--text) 8%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+}
+
+/* visible focus ring for keyboard nav, hidden for mouse users */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
