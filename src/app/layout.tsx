@@ -18,6 +18,12 @@ export const metadata: Metadata = {
   title: "NetTwin — AI Network Digital Twin",
   description:
     "Model a real network topology, simulate failures and degradation with real graph algorithms, plan subnets and configs, and ask an AI network engineer to explain the impact — all in a safe digital twin.",
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/icon.svg",
+  },
 };
 
 export const viewport: Viewport = {
